@@ -1,0 +1,138 @@
+Country 
+Afghanistan
+Algeria
+Angola
+Antigua & Barbuda
+Argentina
+Aruba
+Azerbaijan
+Bahamas
+Bahrain
+Bangladesh
+Barbados
+Belize
+Benin
+Bhutan
+Bolivia
+Botswana
+Brazil
+Brunei
+Burkina Faso
+Burundi
+Cambodia
+Cameroon
+Cape Verde
+Central African Rep
+Chad
+Chile
+China
+Colombia
+Comoros
+Congo, Dem
+Congo, Rep
+Costa Rica
+Côte d’Ivoire
+Cuba
+Djibouti
+Dominica
+Dominican Rep
+Ecuador
+Egypt
+El Salvador
+Equatorial Guinea
+Eritrea
+Eswatini, Kingdom of
+Ethiopia
+Fiji
+Gabon
+Gambia
+Ghana
+Grenada
+Guadeloupe
+Guatemala
+Guinea
+Guinea-Bissau
+Guyana
+Haiti
+Honduras
+India
+Indonesia
+Iran, Isl
+Iraq
+Jamaica
+Jordan
+Kazakhstan
+Kenya
+Kiribati
+Kuwait
+Kyrgyzstan
+Lao PDR
+Lebanon
+Lesotho
+Liberia
+Libya
+Madagascar
+Malawi
+Malaysia
+Maldives
+Mali
+Mauritania
+Mauritius
+Mexico
+Micronesia, Fed
+Mongolia
+Morocco
+Mozambique
+Myanmar
+Namibia
+Nepal
+Nicaragua
+Niger
+Nigeria
+Oman
+Pakistan
+Palau
+Palestine(West Bank & Gaza)
+Panama
+Papua New Guinea
+Paraguay
+Peru
+Philippines
+Qatar
+Rwanda
+Samoa
+São Tomé & Príncipe
+Saudi Arabia
+Senegal
+Seychelles
+Sierra Leone
+Solomon Islands
+Somalia
+South Africa
+South Sudan
+Sri Lanka
+St Vincent & Grenadines
+Sudan
+Suriname
+Syrian Arab Rep
+Tajikistan
+Tanzania, United Rep
+Thailand
+Timor-Leste
+Togo
+Tonga
+Trinidad & Tobago
+Tunisia
+Turkey
+Turkmenistan
+Tuvalu
+Uganda
+United Arab Emirates
+Uruguay
+Uzbekistan
+Vanuatu, Rep
+Venezuela
+Vietnam
+Yemen
+Zambia
+Zimbabwe
