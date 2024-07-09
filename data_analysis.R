@@ -1,5 +1,6 @@
 # Migration Data Analysis
 
+require(readr)
 library(tidyverse)
 library(ggpubr)
 library(stringr) 
@@ -16,8 +17,15 @@ library(ggrepel)
 library("scales") 
 
 # Call data----
-global_data   = read.csv("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/International_migration_database.csv")
-GS_names      = read.delim("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/global_south.txt", header = TRUE)
+global_data   = readr::read_csv(unzip("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Data/International_migration_database.zip", 
+                                    "International_migration_database.csv"))
+GS_names      = read.delim("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Data/global_south.txt", header = TRUE)
+
+colnames(global_data) = c("Code","Country.of.birth.nationality","VAR","Variable",
+                          "GEN","Gender","COU","Country","YEA","Year","Value",
+                          "Flag.Codes","Flags")
+
+# Data organization----
 global_data.t = global_data  %>% filter(Country.of.birth.nationality %in% GS_names$Country) %>% 
   filter(Variable == "Inflows of foreign population by nationality") %>%
   filter(Gender == "Total")
@@ -34,13 +42,13 @@ year_filter   = unique(global_data.w$Year)
 global_data.w.1 = global_data.w %>% filter(Year %in% year_filter[1:22]) %>% 
   group_by(Country.of.birth.nationality,Year) %>%
   summarise(Total = sum(Value))
-write.csv(global_data.w.1, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/Migration_country_origin.csv")
+write.csv(global_data.w.1, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Intermediate_Results/Migration_country_origin.csv")
 
 # Summarize per country of destination and year
 global_data.w.2 = global_data.w %>% filter(Year %in% year_filter[1:22]) %>% 
   group_by(Country,Year) %>%
   summarise(Total = sum(Value))
-write.csv(global_data.w.2, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/Migration_country_destination.csv")
+write.csv(global_data.w.2, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Intermediate_Results/Migration_country_destination.csv")
 
 # Make data for the graph----
 
@@ -62,7 +70,7 @@ for(i in a){
 colnames(country_change_migration) = c("Country","Change","Band")
 rownames(country_change_migration) = NULL
 country_change_migration = as.data.frame(country_change_migration)
-write.csv(country_change_migration, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/country_change_migration.csv")
+write.csv(country_change_migration, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Intermediate_Results/country_change_migration.csv")
 
 # Change in data of migration to country of origin
 a.1 = unique(global_data.w.2$Country)
@@ -117,7 +125,7 @@ country_change_destination.1$Country[country_change_destination.1$Country == "TÃ
   "Turkey"
 country_change_destination.1$Country[country_change_destination.1$Country == "United States"] =
   "United States of America"
-write.csv(country_change_destination.1, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/data/country_change_destination.csv")
+write.csv(country_change_destination.1, file = "C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Intermediate_Results/country_change_destination.csv")
 
 # Plotting map----
 world   = ne_countries(scale = "medium", returnclass = "sf")
@@ -126,7 +134,7 @@ world.1 = merge(world, country_change_migration, by.x = "name", by.y = "Country"
 world.2 = merge(world, country_change_destination.1, by.x = "name", by.y = "Country", all.x = TRUE)
 
 # Migration from global south
-ggplot(data = world.1) +
+Figure_3 = ggplot(data = world.1) +
   geom_sf(aes(fill = as.factor(Band))) +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle("Change in female migration from 2000 to 2019 from Global South countries", 
@@ -137,8 +145,13 @@ ggplot(data = world.1) +
                                  "#fdd49e","#7fcdbb","#bdbdbd"),
                     name="Change (%)") 
 
+png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_3.png",
+    width=3500,height=1969,res=300)
+print(Figure_3)
+dev.off()
+
 # Destination countries from global south
-ggplot(data = world.2) +
+Figure_1 = ggplot(data = world.2) +
   geom_sf(aes(fill = as.factor(Band))) +
   xlab("Longitude") + ylab("Latitude") +
   ggtitle("Destination Countries - Change in female migration from 2009 to 2019 from Global South", 
@@ -148,6 +161,11 @@ ggplot(data = world.2) +
                     values = c("#08519c", "#3182bd", "#6baed6","#c6dbef",
                                "#fdd49e","#bdbdbd"),
                     name="Change (%)") +  theme(plot.title=element_text(size=12))
+
+png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_1.png",
+    width=3500,height=1969,res=300)
+print(Figure_1)
+dev.off()
 
 # Plotting time series
 global_data.w.2_top10 = global_data.w.2 %>% filter(Country %in% c("United States",
@@ -163,7 +181,7 @@ data_ends = global_data.w.2_top10 %>%
   group_by(Country) %>%
   top_n(1, Year)
 
-ggplot(global_data.w.2_top10, aes(x = Year, y = (Total), color = Country)) +
+Figure_2 = ggplot(global_data.w.2_top10, aes(x = Year, y = (Total), color = Country)) +
   geom_line(aes(color = Country),size = .9) + 
   geom_text_repel(
     aes(label = Country),data = data_ends,
@@ -184,5 +202,10 @@ ggplot(global_data.w.2_top10, aes(x = Year, y = (Total), color = Country)) +
                                              y = "Immigrants (women)") + 
   scale_x_continuous(limits = c(2000, 2021.5),breaks = scales::pretty_breaks(n = 10)) + 
   scale_y_continuous(labels = comma) 
+
+png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_2.png",
+    width=3500,height=1969,res=300)
+print(Figure_2)
+dev.off()
 
 
