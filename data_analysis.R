@@ -145,7 +145,7 @@ Figure_3 = ggplot(data = world.1) +
                                  "#fdd49e","#7fcdbb","#bdbdbd"),
                     name="Change (%)") 
 
-png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_3.png",
+jpeg("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_3.jpeg",
     width=3500,height=1969,res=300)
 print(Figure_3)
 dev.off()
@@ -162,7 +162,7 @@ Figure_1 = ggplot(data = world.2) +
                                "#fdd49e","#bdbdbd"),
                     name="Change (%)") +  theme(plot.title=element_text(size=12))
 
-png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_1.png",
+jpeg("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_1.jpeg",
     width=3500,height=1969,res=300)
 print(Figure_1)
 dev.off()
@@ -203,7 +203,7 @@ Figure_2 = ggplot(global_data.w.2_top10, aes(x = Year, y = (Total), color = Coun
   scale_x_continuous(limits = c(2000, 2021.5),breaks = scales::pretty_breaks(n = 10)) + 
   scale_y_continuous(labels = comma) 
 
-png("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_2.png",
+jpeg("C:/luciana_datos/UCI/paper_raw/Global_south/chapter_12/OECD_Analysis/Figures/Figure_2.jpeg",
     width=3500,height=1969,res=300)
 print(Figure_2)
 dev.off()
